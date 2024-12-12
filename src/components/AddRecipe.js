@@ -29,6 +29,8 @@ const AddRecipe = ({ darkMode }) => {
         setSteps([...steps, { step: '', imageUrl: '' }]);
     };
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -39,7 +41,7 @@ const AddRecipe = ({ darkMode }) => {
             image: [], // Use empty array if there are no images
             steps: steps.map(step => ({
                 step: step.step,
-                image: step.imageUrl ? [{ dataUrl: step.imageUrl, type: 'external' }] : [] // Adjust if needed
+                image: step.imageUrl ? [{ dataUrl: step.imageUrl, type: 'external' }] : []
             })),
             servings: servings,
             cookingTime: cookingTime,
@@ -61,14 +63,39 @@ const AddRecipe = ({ darkMode }) => {
                 body: JSON.stringify(newRecipe)
             });
 
+            // Check if the response is not OK
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                const errorData = await response.json(); // Parse the JSON response
+    
+                // Check if errorData is an object
+                if (errorData && typeof errorData === 'object') {
+                    // Loop through the keys of the error object
+                    let errorMessage = "Error: ";
+                    for (const [key, messages] of Object.entries(errorData)) {
+                        if (Array.isArray(messages) && messages.length > 0) {
+                            // Prepend the field name (e.g., "Slug") to the first message
+                            errorMessage += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${messages[0]} `;
+                        }
+                    }
+                    setErrorMessage(errorMessage.trim()); // Set the composed error message
+                } else {
+                    setErrorMessage("An unspecified error occurred.");
+                }
+                return; // Exit the function early if there's an error
             }
 
-            const result = await response.json();
-            setMessage(`Recipe added successfully: ${result.id}`);
+        const data = await response.json(); // Parse the successful response
+        alert(`Recipe added! ID: ${data.id}`);
+
+        setErrorMessage(""); // Reset any previous error messages
+
+
         } catch (error) {
             setMessage(`Error: ${error.message}`);
+
+           // If there is a network error or other unexpected error
+            setErrorMessage(`Error: ${error.message}`);
+            console.error("Fetch Error:", error);
         }
     };
 
@@ -136,6 +163,7 @@ const AddRecipe = ({ darkMode }) => {
     
                         <button
                             type="button"
+                            onClick={handleAddIngredient}
                             className={`bg-blue-500 rounded-md px-4 py-2 shadow-md 
                                 hover:bg-blue-600 
                                 focus:outline-none 
@@ -224,9 +252,12 @@ const AddRecipe = ({ darkMode }) => {
                     </button>
     
                     {message && <p className={`mt-4 ${darkMode ? 'text-gray-400' : 'text-red-600'}`}>{message}</p>}
+                    {errorMessage && <div className="error mt-4 text-red-600">{errorMessage}</div>}
                 </div>
             </div>
+            
         </form>
+         
     );
     
     
