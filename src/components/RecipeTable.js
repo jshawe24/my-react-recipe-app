@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 // Function to fetch data from the API
 const fetchData = async (setLoading, setError) => {
     setLoading(true);
-    
     try {
         const response = await fetch('https://api.flotiq.com/api/v1/content/recipe', {
             method: 'GET',
@@ -67,69 +66,73 @@ const RecipeTable = ({ darkMode }) => {
     );
 
     return (
-        <div className={`${darkMode ? 'bg-gray-900' : 'bg-white'} p-4`} style={{ paddingTop: '2em' }}>
-            <div className='mb-4'>
-                <h2 className={`${darkMode ? 'text-white' : 'text-black'}`}>Search recipes</h2>
-                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
-                    Search all our recipes for your favorite.
-                </p>
-                {loading && <div>Loading... Please wait.</div>}
-                {error && <div className="text-red-500">Error: {error}</div>}
-                <input
-                    type="text"
-                    placeholder="Filter by ingredient..."
-                    className={`mb-4 p-2 border rounded ${darkMode ? 'border-gray-600 bg-gray-800 text-gray-200' : 'border-gray-300'}`}
-                    onChange={(e) => setFilter(e.target.value)}
-                />
+
+            <div className={`ast ${darkMode ? 'ajt' : 'aml'}`} style={{ paddingTop: '2em' }}>
+                <div className="gh uo asf dmr">
+                    <div className="gh uj dcb">
+                        <h2 className={`aee awq axr axz cqp ${darkMode ? 'bbl' : 'ayx'}`}>Search recipes</h2>
+                        <p className="kt axc ayr">Our recipes are made by the finest chefs, to deliver greatness to every meal.</p>
+                    </div>
+
+                    <input
+                        type="text"
+                        placeholder="Filter by ingredient..."
+                        className={`mb-4 p-2 border rounded ${darkMode ? 'border-gray-600 bg-gray-800 text-gray-200' : 'border-gray-300'}`}
+                        onChange={(e) => setFilter(e.target.value)}
+                    />
+
+                    {loading && <div className="text-yellow-500">Loading... Please wait.</div>}
+                    {error && <div className="text-red-500">Error: {error}</div>}
+
+                    <div className="relative overflow-x-auto">
+                        <table className={`w-full text-sm text-left ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            <thead className={`${darkMode ? 'bg-gray-700 text-gray-400' : 'bg-gray-50 text-gray-700'}`}>
+                                <tr>
+                                    {['name', 'ingredients', 'cookingTime', 'servings'].map((header) => (
+                                        <th
+                                            key={header}
+                                            scope="col"
+                                            className={`cursor-pointer px-6 py-3 ${darkMode ? 'text-gray-400' : ''}`}
+                                            onClick={() => handleSort(header)}
+                                        >
+                                            {header.charAt(0).toUpperCase() + header.slice(1)}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredRecipes.length > 0 ? (
+                                    filteredRecipes.map((recipe) => (
+                                        <tr key={recipe.id} className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
+                                            <td className={`px-6 py-4 font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                                {recipe.name}
+                                            </td>
+                                            <td className={`px-6 py-4 ${darkMode ? 'text-gray-400' : ''}`}>
+                                                {recipe.ingredients.map((ing, index) => (
+                                                    <div key={index}>{`${ing.product} (${ing.amount} ${ing.unit})`}</div>
+                                                ))}
+                                            </td>
+                                            <td className={`px-6 py-4 ${darkMode ? 'text-gray-400' : ''}`}>
+                                                {recipe.cookingTime}
+                                            </td>
+                                            <td className={`px-6 py-4 ${darkMode ? 'text-gray-400' : ''}`}>
+                                                {recipe.servings}
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4" className={`text-center border-b px-6 py-4 ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+                                            No recipes found.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <div className="relative overflow-x-auto">
-                <table className={`w-full text-sm text-left ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                    <thead className={`${darkMode ? 'bg-gray-700 text-gray-400' : 'bg-gray-50 text-gray-700'}`}>
-                        <tr>
-                            {['name', 'ingredients', 'cookingTime', 'servings'].map((header) => (
-                                <th
-                                    key={header}
-                                    scope="col"
-                                    className={`cursor-pointer px-6 py-3 ${darkMode ? 'text-gray-400' : ''}`}
-                                    onClick={() => handleSort(header)}
-                                >
-                                    {header.charAt(0).toUpperCase() + header.slice(1)}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredRecipes.length > 0 ? (
-                            filteredRecipes.map((recipe) => (
-                                <tr key={recipe.id} className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
-                                    <td className={`px-6 py-4 font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                                        {recipe.name}
-                                    </td>
-                                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-400' : ''}`}>
-                                        {recipe.ingredients.map((ing, index) => (
-                                            <div key={index}>{`${ing.product} (${ing.amount} ${ing.unit})`}</div>
-                                        ))}
-                                    </td>
-                                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-400' : ''}`}>
-                                        {recipe.cookingTime}
-                                    </td>
-                                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-400' : ''}`}>
-                                        {recipe.servings}
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="4" className={`text-center border-b px-6 py-4 ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
-                                    No recipes found.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </div>
     );
 };
 

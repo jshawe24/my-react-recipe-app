@@ -73,123 +73,163 @@ const AddRecipe = ({ darkMode }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className={`p-4 ${darkMode ? 'text-white' : 'text-black'}`}>
-            <h2 className="text-lg font-bold">Add New Recipe</h2>
-
-            <div className="mb-4">
-                <label className="block mb-1">Recipe Name:</label>
-                <input type="text"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    className="border rounded p-2 w-full"
-                    required
-                />
-            </div>
-
-            <div className="mb-4">
-                <label className="block mb-1">Ingredients:</label>
-                {ingredients.map((ingredient, index) => (
-                    <div key={index} className="flex mb-2">
-                        <input type="text"
-                            name="product"
-                            value={ingredient.product}
-                            onChange={event => handleIngredientChange(index, event)}
-                            className="border rounded p-2 w-1/3 mr-2"
-                            placeholder="Ingredient"
-                            required
-                        />
-                        <input type="number"
-                            name="amount"
-                            value={ingredient.amount}
-                            onChange={event => handleIngredientChange(index, event)}
-                            className="border rounded p-2 w-1/3 mr-2"
-                            placeholder="Amount"
-                            required
-                        />
-                        <select
-                            name="unit"
-                            value={ingredient.unit}
-                            onChange={event => handleIngredientChange(index, event)}
-                            className="border rounded p-2 w-1/3"
-                            required
-                        >
-                            <option value="">Select unit</option>
-                            <option value="pcs">pcs</option>
-                            <option value="g">g</option>
-                            <option value="kg">kg</option>
-                            <option value="cups">cups</option>
-                            <option value="tablespoon">tablespoon</option>
-                            <option value="teaspoon">teaspoon</option>
-                        </select>
+        <form onSubmit={handleSubmit} className={`${darkMode ? 'text-white' : 'text-black'}`}>
+            <div className={`ast ${darkMode ? 'ajt' : 'aml'}`} style={{ paddingTop: '2em' }}>
+                <div className="gh uo asf dmr">
+                    <div className="gh uj dcb">
+                        <h2 className={`aee awq axr axz cqp ${darkMode ? 'bbl' : 'ayx'}`}>Add New Recipe</h2>
+                        <p className="kt axc ayr">Our recipes are made by the finest chefs, to deliver greatness to every meal.</p>
                     </div>
-                ))}
-                <button 
-                    type="button" 
-                    className={`bg-blue-500 rounded-md px-4 py-2 shadow-md 
-                                hover:bg-blue-600 focus:outline-none 
-                                focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 
-                                transition-all 
-                                ${darkMode ? 'text-white bg-blue-700 hover:bg-blue-800' : 'text-white'}`}>
-                    Add Ingredient
-                </button>
-
-            </div>
-
-            <div className="mb-4">
-                <label className="block mb-1">Steps:</label>
-                {steps.map((step, index) => (
-                    <div key={index} className="flex mb-2">
-                        <textarea
-                            name="step"
-                            value={step.step}
-                            onChange={event => handleStepChange(index, event)}
-                            className="border rounded p-2 w-2/3 mr-2"
-                            placeholder="Step description"
-                            required
-                        />
+    
+                    <div className="mb-4">
+                        <label className="block mb-1">Recipe Name:</label>
                         <input
                             type="text"
-                            name="imageUrl"
-                            value={step.imageUrl}
-                            onChange={event => handleStepChange(index, event)}
-                            className="border rounded p-2 w-1/3"
-                            placeholder="Image URL (optional)"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            className={`border rounded p-2 w-full ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                            required
                         />
                     </div>
-                ))}
-                <button type="button" onClick={handleAddStep} className="bg-blue-500 text-white rounded p-2">
-                    Add Step
-                </button>
+    
+                    <div className="mb-4">
+                        <label className="block mb-1">Ingredients:</label>
+                        {ingredients.map((ingredient, index) => (
+                            <div key={index} className="flex mb-2">
+                                <input
+                                    type="text"
+                                    name="product"
+                                    value={ingredient.product}
+                                    onChange={event => handleIngredientChange(index, event)}
+                                    className={`border rounded p-2 w-1/3 mr-2 ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                                    placeholder="Ingredient"
+                                    required
+                                />
+    
+                                <input
+                                    type="number"
+                                    name="amount"
+                                    value={ingredient.amount}
+                                    onChange={event => handleIngredientChange(index, event)}
+                                    className={`border rounded p-2 w-1/3 mr-2 ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                                    placeholder="Amount"
+                                    required
+                                />
+    
+                                <select
+                                    name="unit"
+                                    value={ingredient.unit}
+                                    onChange={event => handleIngredientChange(index, event)}
+                                    className={`border rounded p-2 w-1/3 ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                                    required
+                                >
+                                    <option value="">Select unit</option>
+                                    <option value="pcs">pcs</option>
+                                    <option value="g">g</option>
+                                    <option value="kg">kg</option>
+                                    <option value="cups">cups</option>
+                                    <option value="tablespoon">tablespoon</option>
+                                    <option value="teaspoon">teaspoon</option>
+                                </select>
+                            </div>
+                        ))}
+    
+                        <button
+                            type="button"
+                            className={`bg-blue-500 rounded-md px-4 py-2 shadow-md 
+                                hover:bg-blue-600 
+                                focus:outline-none 
+                                focus:ring-2 
+                                focus:ring-blue-400 
+                                focus:ring-opacity-50 transition-all 
+                                ${darkMode ? 'text-white bg-blue-700 hover:bg-blue-800' : 'text-black'}`}
+                        >
+                            Add Ingredient
+                        </button>
+                    </div>
+    
+                    <div className="mb-4">
+                        <label className="block mb-1">Steps:</label>
+                        {steps.map((step, index) => (
+                            <div key={index} className="flex mb-2">
+                                <textarea
+                                    name="step"
+                                    value={step.step}
+                                    onChange={event => handleStepChange(index, event)}
+                                    className={`border rounded p-2 w-2/3 mr-2 ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                                    placeholder="Step description"
+                                    required
+                                />
+    
+                                <input
+                                    type="text"
+                                    name="imageUrl"
+                                    value={step.imageUrl}
+                                    onChange={event => handleStepChange(index, event)}
+                                    className={`border rounded p-2 w-1/3 ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                                    placeholder="Image URL (optional)"
+                                />
+                            </div>
+                        ))}
+
+                        <button
+                            type="button"
+                            onClick={handleAddStep}
+                            className={`bg-blue-500 rounded-md px-4 py-2 shadow-md 
+                                hover:bg-blue-600 
+                                focus:outline-none 
+                                focus:ring-2 
+                                focus:ring-blue-400 
+                                focus:ring-opacity-50 transition-all 
+                                ${darkMode ? 'text-white bg-blue-700 hover:bg-blue-800' : 'text-black'}`}
+                        >
+                            Add Step
+                        </button>
+                    </div>
+    
+                    <div className="mb-4">
+                        <label className="block mb-1">Cooking Time:</label>
+                        <input
+                            type="text"
+                            value={cookingTime}
+                            onChange={e => setCookingTime(e.target.value)}
+                            className={`border rounded p-2 w-full ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                            placeholder="e.g. 30 minutes"
+                            required
+                        />
+                    </div>
+    
+                    <div className="mb-4">
+                        <label className="block mb-1">Servings:</label>
+                        <input
+                            type="number"
+                            value={servings}
+                            onChange={e => setServings(Number(e.target.value))}
+                            className={`border rounded p-2 w-full ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}`}
+                            required
+                        />
+                    </div>
+
+                    <button
+                            type="submit"
+                            className={`bg-blue-500 rounded-md px-4 py-2 shadow-md 
+                                hover:bg-blue-600 
+                                focus:outline-none 
+                                focus:ring-2 
+                                focus:ring-blue-400 
+                                focus:ring-opacity-50 transition-all 
+                                ${darkMode ? 'text-white bg-blue-700 hover:bg-blue-800' : 'text-black'}`}
+                        >
+                            Submit Recipe
+                    </button>
+    
+                    {message && <p className={`mt-4 ${darkMode ? 'text-gray-400' : 'text-red-600'}`}>{message}</p>}
+                </div>
             </div>
-
-            <div className="mb-4">
-                <label className="block mb-1">Cooking Time:</label>
-                <input type="text"
-                    value={cookingTime}
-                    onChange={e => setCookingTime(e.target.value)}
-                    className="border rounded p-2 w-full"
-                    placeholder="e.g., 30 minutes"
-                    required
-                />
-            </div>
-
-            <div className="mb-4">
-                <label className="block mb-1">Servings:</label>
-                <input type="number"
-                    value={servings}
-                    onChange={e => setServings(Number(e.target.value))}
-                    className="border rounded p-2 w-full"
-                    required
-                />
-            </div>
-
-            <button type="submit" className="bg-green-500 text-white rounded p-2">
-                Submit Recipe
-            </button>
-
-            {message && <p className={`mt-4 ${darkMode ? 'text-light' : 'text-red-600'}`}>{message}</p>}
         </form>
     );
+    
+    
 };
 
 export default AddRecipe;
